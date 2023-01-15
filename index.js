@@ -25,7 +25,18 @@ async function run() {
     });
 
     app.put("/connections", async (req, res) => {
-      console.log("count");
+      const count = req.body.count;
+
+      const filter = { _id: ObjectId('63c39ee208a5c8c08611a7e6') };
+      const options = { upsert: true };
+      const updatedDoc = {
+        $set: {
+          count: count
+        }
+      }
+
+      const result = await connectionCountCollections.updateOne(filter, updatedDoc, options);
+      res.send(result);
     });
 
     app.get("/connections", async (req, res) => {
@@ -33,15 +44,6 @@ async function run() {
       const result = await connectionCountCollections.find(query).toArray();
       res.send(result);
     });
-
-    app.post("/connections", async (req, res) => {
-      const data = {
-        count: 1
-      }
-
-      const result = connectionCountCollections.insertOne(data);
-      res.send(result);
-    })
 
   } finally {
 
