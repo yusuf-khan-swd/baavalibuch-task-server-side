@@ -45,12 +45,6 @@ async function run() {
       res.send(result);
     });
 
-    app.delete("/postCollection", async (req, res) => {
-      const query = {};
-      const result = await inputDataCollections.deleteMany(query);
-      res.send(result);
-    })
-
   } finally {
 
   }
