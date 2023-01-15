@@ -24,6 +24,12 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/connections", async (req, res) => {
+      const query = { _id: ObjectId('63c39ee208a5c8c08611a7e6') };
+      const result = await connectionCountCollections.find(query).toArray();
+      res.send(result);
+    });
+
     app.put("/connections", async (req, res) => {
       const count = req.body.count;
 
@@ -39,11 +45,11 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/connections", async (req, res) => {
-      const query = { _id: ObjectId('63c39ee208a5c8c08611a7e6') };
-      const result = await connectionCountCollections.find(query).toArray();
+    app.delete("/postCollection", async (req, res) => {
+      const query = {};
+      const result = await inputDataCollections.deleteMany(query);
       res.send(result);
-    });
+    })
 
   } finally {
 
